@@ -1,0 +1,118 @@
+<div class="animated fadeIn">
+  <div class="card">
+    <div class="card-header">
+      <strong>Pedido - Registrar</strong>
+    </div>
+    <div class="card-body">
+      <form class="example-form" [formGroup]="myControl">
+        <div class="row" style="margin-left: 1px">
+          <h6>Pedido:</h6>
+          <h6 style="margin-left: 3px; color: red" >{{sequence.sequenceNumber}}</h6>
+        </div>
+        <div class="row">
+          <mat-form-field class="col-sm-2">
+            <input matInput [matDatepicker]="dataPedido" placeholder="Data Pedido" formControlName="dataPedido">
+            <mat-datepicker-toggle matSuffix [for]="dataPedido"></mat-datepicker-toggle>
+            <mat-datepicker #dataPedido></mat-datepicker>
+          </mat-form-field>
+          <mat-form-field class="col-sm-2">
+            <input matInput [matDatepicker]="dataEntrega" placeholder="Data Entrega" formControlName="dataEntrega">
+            <mat-datepicker-toggle matSuffix [for]="dataEntrega"></mat-datepicker-toggle>
+            <mat-datepicker #dataEntrega></mat-datepicker>
+          </mat-form-field>
+
+          <mat-form-field class="col-sm-4">
+            <mat-label>Cliente</mat-label>
+            <mat-select name="cliente" formControlName="cliente">
+              <mat-option [value]="null"></mat-option>
+              <mat-option *ngFor="let c of cliente" [value]="c">{{c.id}} - {{c.nomeFantasia}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field class="col-sm-2">
+            <mat-label>Pagamento</mat-label>
+            <mat-select name="cliente" formControlName="pagamento">
+              <mat-option [value]="null"></mat-option>
+              <mat-option *ngFor="let pag of pagamento" [value]="pag">{{pag}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="row">
+          <mat-form-field class="col-sm-2">
+            <input #name matInput type="number" placeholder="Quantidade" formControlName="quantidade"
+                   [(ngModel)]="quantidade">
+          </mat-form-field>
+
+          <mat-form-field class="col-sm-6">
+            <mat-label>Produto</mat-label>
+            <mat-select name="produto" formControlName="produto" [(ngModel)]="produto"
+                        (ngModelChange)="setValorUnitario()">
+              <mat-option [value]="null"></mat-option>
+              <mat-option *ngFor="let p of prods" [value]="p">{{p.id}} - {{p.nome}} - {{p.recheio}} </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+
+          <mat-form-field class="col-sm-2">
+            <input disabled matInput placeholder="Valor R$" currencyMask formControlName="valorUnitario"
+                   [(ngModel)]="valorUnitario" [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }"
+            />
+          </mat-form-field>
+
+          <button mat-mini-fab style="background-color: rgb(255, 205, 55); color: white;"
+                  (click)="incluirItemListaDePedido()">+
+          </button>
+        </div>
+
+
+        <table ng-repeat mat-table [dataSource]="produtos" matSort class="mat-elevation-z8">
+          <ng-container matColumnDef="produto">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Produto</th>
+            <td mat-cell *matCellDef="let element"> {{element.produto}} </td>
+            <td mat-footer-cell *matFooterCellDef>Total</td>
+          </ng-container>
+          <ng-container matColumnDef="quantidade">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Quantidade</th>
+            <td mat-cell *matCellDef="let element"> {{element.quantidade}} </td>
+            <td mat-footer-cell *matFooterCellDef>{{quantidadeTotal}}</td>
+          </ng-container>
+          <ng-container matColumnDef="recheio">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Recheio</th>
+            <td mat-cell *matCellDef="let element"> {{element.recheio}} </td>
+            <td mat-footer-cell *matFooterCellDef></td>
+          </ng-container>
+          <ng-container matColumnDef="valorUnitario">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Valor Unitário</th>
+            <td mat-cell *matCellDef="let element"> {{element.valorUnitario | currency:'BRL'}} </td>
+            <td mat-footer-cell *matFooterCellDef></td>
+          </ng-container>
+          <ng-container matColumnDef="valorPorProduto">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Valor por produto</th>
+            <td mat-cell *matCellDef="let element"> {{element.valorPorProduto| currency:'BRL'}} </td>
+            <td mat-footer-cell *matFooterCellDef> {{storeValorTotal | currency:'BRL' }} </td>
+          </ng-container>
+          <ng-container matColumnDef="remover">
+            <th mat-header-cell *matHeaderCellDef> Remover</th>
+            <td mat-cell *matCellDef="let element">
+              <button mat-icon-button color="accent"
+                      (click)="excluirItemListaPedido(element)">
+                <mat-icon aria-label="Delete">delete</mat-icon>
+              </button>
+            </td>
+            <td mat-footer-cell *matFooterCellDef></td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
+        </table>
+
+
+        <button mat-raised-button (click)="openSnackBar('Pedido registrado com sucesso.', null)"
+                style="background-color: rgb(255, 205, 55); color: white; float: right; margin-top: 20px"
+                (click)="salvarPedido()">Registrar Pedido
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
