@@ -22,6 +22,8 @@ import {CadastrarClienteModule} from './cliente/cadastrar-cliente/cadastrar.clie
 import {LancarEstoqueModule} from './estoque/lancar-estoque/lancar.estoque.module';
 import {ConsultarPedidoModule} from './financeiro/consultar-pedido/consultar.pedido.module';
 import {MatExpansionModule} from '@angular/material';
+import {ReactiveFormsModule} from "@angular/forms";
+
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -51,7 +53,8 @@ registerLocaleData(localePt, 'pt-BR');
     RegistrarPedidoModule,
     ConsultarPedidoModule,
     CadastrarClienteModule,
-    LancarEstoqueModule
+    LancarEstoqueModule,
+    ReactiveFormsModule
   ],
   declarations: [
     AppComponent,

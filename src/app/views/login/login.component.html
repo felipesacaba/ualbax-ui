@@ -6,7 +6,7 @@
           <div class="card-group">
             <div class="card p-4 opacity">
               <div class="card-body">
-                <form>
+                <form [formGroup]="loginForm" (submit)="login()">
                   <h1>Login</h1>
                   <div class="input-group mb-2" style="margin-top: 30px">
                     <div class="input-group-prepend">
@@ -17,6 +17,8 @@
                       class="form-control"
                       placeholder="Usuário"
                       autocomplete="username"
+                      formControlName="username"
+                      (keyup.enter)="focusableSubmit.click()"
                     >
                   </div>
                   <div class="input-group mb-4">
@@ -28,12 +30,19 @@
                       class="form-control"
                       placeholder="Senha"
                       autocomplete="current-password"
+                      formControlName="password"
+                      (keyup.enter)="focusableSubmit.click()"
                     >
                   </div>
                   <div class="row" style="float:right">
                     <div class="col-12">
-                      <button type="button" [routerLink]="['/dashboard']" (click)="logar()" class="btn btn-primary px-4">
-                        Entrar
+                      <button
+                              class="btn btn-primary px-4"
+                              #focusableSubmit
+                              type="button"
+                              (click)="login()"
+                      >
+                              Entrar
                       </button>
 
                     </div>
