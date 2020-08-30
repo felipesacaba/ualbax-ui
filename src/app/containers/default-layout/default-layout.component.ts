@@ -12,6 +12,7 @@ export class DefaultLayoutComponent implements OnDestroy,OnInit {
   public sidebarMinimized = true;
   private changes: MutationObserver;
   public element: HTMLElement;
+
   constructor(
       private menuService: MenuService,
       @Inject(DOCUMENT) _document?: any) {

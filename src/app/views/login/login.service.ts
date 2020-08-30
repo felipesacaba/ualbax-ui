@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
-import {Observable} from "rxjs";
+import {tap} from 'rxjs/operators';
 
 @Injectable({providedIn: 'root'})
 export class LoginService {
@@ -10,12 +10,21 @@ export class LoginService {
     constructor(
         public http: HttpClient
     ) {
-
         this.url = `http://localhost:5000/api/v1/login`;
     }
 
     login(username: string, password: string) {
-
-        return this.http.post<any>(`${this.url}`, {login: username, password: password});
+        return this.http
+            .post<any>(`${this.url}`, {login: username, password: password})
+            .pipe(tap(res => {
+                const token = res.token;
+                console.log('Token no service login: ' + token);
+                this.setAttributesSessionStorage(token);
+            }));
     }
+
+    setAttributesSessionStorage(token: string) {
+        sessionStorage.setItem('key', token);
+    }
+
 }

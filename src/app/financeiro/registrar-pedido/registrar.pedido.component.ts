@@ -59,16 +59,9 @@ export class RegistrarPedidoComponent implements OnInit {
     this.inp = true;
     this.getClientes();
     this.getProdutos();
-    this.getSequence();
   }
 
-  private getSequence() {
-    this.pedidoService.getSequence().subscribe(
-      res => {
-        this.sequence = res;
-      }
-    );
-  }
+
 
   public getClientes() {
     this.clienteService.findAllCliente().subscribe(

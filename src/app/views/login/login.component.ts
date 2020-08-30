@@ -34,10 +34,15 @@ export class LoginComponent implements OnInit {
     login() {
         this.loginService.login(this.loginForm.value.username, this.loginForm.value.password)
 
-            .subscribe(
-                    () => {
-                        this.router.navigate([this.navigateTo]);
-                    }
+            .subscribe(data => {
+                    console.log(`Bem Vindo! `, '');
+                },
+                error => {
+                    console.log('Error ao realizar login.');
+                },
+                () => {
+                    this.router.navigate([this.navigateTo]);
+                }
             );
     }
 }
