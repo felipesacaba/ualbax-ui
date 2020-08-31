@@ -59,16 +59,9 @@ export class RegistrarPedidoComponent implements OnInit {
     this.inp = true;
     this.getClientes();
     this.getProdutos();
-    this.getSequence();
   }
 
-  private getSequence() {
-    this.pedidoService.getSequence().subscribe(
-      res => {
-        this.sequence = res;
-      }
-    );
-  }
+
 
   public getClientes() {
     this.clienteService.findAllCliente().subscribe(
@@ -151,23 +144,7 @@ export class RegistrarPedidoComponent implements OnInit {
 
 
   salvarPedido() {
-    this.objectToSave.sequence = this.sequence;
-    this.objectToSave.dataPedido = this.myControl.get('dataPedido').value;
-    this.objectToSave.dataEntrega = this.myControl.get('dataEntrega').value;
-    this.objectToSave.cliente = this.myControl.get('cliente').value;
-    this.objectToSave.produtos = this.produtos;
-    this.objectToSave.pagamento = this.validaPagamento();
-    this.objectToSave.valorPedido = this.storeValorTotal;
 
-    this.pedidoService.salvarOcorrencia(this.objectToSave).subscribe(
-      c =>
-        this.getSequence()
-
-      ,
-      err => {
-        console.log('error');
-      });
-    this.limparCampos();
   }
 
   private validaPagamento() {
