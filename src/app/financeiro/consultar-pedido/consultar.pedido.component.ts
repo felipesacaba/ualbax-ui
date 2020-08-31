@@ -20,17 +20,14 @@ import {Itens} from "../Itens";
 })
 export class ConsultarPedidoComponent implements OnInit {
 
-    dataSource= EL;
+    dataSource: any;
     columnsToDisplay: string [] = ['internalCode', 'description', 'unityMeasure', 'referenceCode', 'EANCode', 'price', 'balanceStock', 'validateDate'];
+    columns: string[] = ['CÓDICO INTERNO', 'DESCRIÇÃO', 'UNIDADE', 'CÓDIGO DE REFERÊNCIA', 'EAN', 'VALOR', 'ESTOQUE', 'VALIDADE'];
 
-    columns: string[] = ['CÓDICO INTERNO', 'DESCRIÇÃO', 'UNIDADE', 'CÓDIGO DE REFERÊNCIA', 'EAN', 'VALOR', 'ESTOQUE', 'VALIDADE'
-    ];
     myControl = new FormGroup({
         referenceCode: new FormControl()
 
     });
-    cliente: ClienteModel[];
-
 
     constructor(
         private pedidoService: PedidoService,
@@ -38,39 +35,17 @@ export class ConsultarPedidoComponent implements OnInit {
     ) {
     }
 
-
     ngOnInit() {
-        console.log(EL)
     }
-
 
     buscarPedidosComParametros() {
         let referenceCode = this.myControl.get('referenceCode').value;
 
         this.pedidoService.buscarItensComParametros(referenceCode).subscribe(res => {
-
-                console.log(res)
-
-                this.dataSource.concat(res);
-
+                this.dataSource = res;
             }
         ), err => {
             console.log('error');
         };
     }
 }
-
-
-const EL: Itens[] = [
-    {
-        internalCode: '401201.60080',
-        description: 'VELA BOSCH RO 898',
-        unityMeasure: 'PC',
-        referenceCode: '60080',
-        EANCode: '7899455901900',
-        price: 120,
-        balanceStock: 1000,
-        validateDate: '2999-12-31'
-    }
-]
-
