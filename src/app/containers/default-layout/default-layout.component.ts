@@ -1,6 +1,7 @@
 import {Component, OnDestroy, Inject, OnInit} from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import {MenuService} from "./menu.service";
+import {LoginService} from "../../views/login/login.service";
 
 
 @Component({
@@ -14,6 +15,7 @@ export class DefaultLayoutComponent implements OnDestroy,OnInit {
   public element: HTMLElement;
 
   constructor(
+      private loginService: LoginService,
       private menuService: MenuService,
       @Inject(DOCUMENT) _document?: any) {
 
@@ -33,6 +35,10 @@ export class DefaultLayoutComponent implements OnDestroy,OnInit {
 
   ngOnDestroy(): void {
     this.changes.disconnect();
+  }
+
+  logout(): void {
+    this.loginService.logout();
   }
 
   getMenu(){
