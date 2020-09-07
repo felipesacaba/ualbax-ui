@@ -1,4 +1,4 @@
-export class Itens{
+export class Item{
     public internalCode: any;
     public description: any;
     public unityMeasure: any;

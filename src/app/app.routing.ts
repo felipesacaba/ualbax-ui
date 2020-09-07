@@ -86,14 +86,6 @@ export const routes: Routes = [
         loadChildren: () => import('./financeiro/consultar-pedido/consultar.pedido.module').then(m => m.ConsultarPedidoModule)
       },
       {
-        path: 'cliente/cadastrar-cliente',
-        loadChildren: () => import('./cliente/cadastrar-cliente/cadastrar.cliente.module').then(m => m.CadastrarClienteModule)
-      },
-      {
-        path: 'estoque/lancar-estoque',
-        loadChildren: () => import('./estoque/lancar-estoque/lancar.estoque.module').then(m => m.LancarEstoqueModule)
-      },
-      {
         path: 'widgets',
         loadChildren: () => import('./views/widgets/widgets.module').then(m => m.WidgetsModule)
       }

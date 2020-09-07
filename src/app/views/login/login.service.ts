@@ -18,7 +18,6 @@ export class LoginService {
             .post<any>(`${this.url}`, {login: username, password: password})
             .pipe(tap(res => {
                 const token = res.token;
-                console.log('Token no service login: ' + token);
                 this.setAttributesSessionStorage(token);
             }));
     }
@@ -27,4 +26,7 @@ export class LoginService {
         sessionStorage.setItem('key', token);
     }
 
+    logout() {
+        sessionStorage.clear();
+    }
 }
